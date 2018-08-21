@@ -361,6 +361,13 @@
   fun:_ZN2v84base6Thread5StartEv
 }
 {
+  leak_nodejs_BackgroundTaskRunner
+  Memcheck:Leak
+  match-leak-kinds: possible
+  ...
+  fun:_ZN4node20BackgroundTaskRunnerC1Ei
+}
+{
   leak_nan_FunctionCallbackInfo
   Memcheck:Leak
   match-leak-kinds: definite
