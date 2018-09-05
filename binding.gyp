@@ -19,21 +19,21 @@
             ],
             'libraries': [
                 'libvips.dll.a',
-                'glib-2.0.lib',
-                'gobject-2.0.lib',
-                'gthread-2.0.lib',
-                'gmodule-2.0.lib',
+                'libglib-2.0.lib',
+                'libgobject-2.0.lib',
+                'libgthread-2.0.lib',
+                'libgmodule-2.0.lib',
                 'liblcms2.dll.a',
                 'libxml2.lib',
                 'intl.lib',
-                'libjpeg.dll.a',
+                'libjpeg.a',
                 'libexif.dll.a',
-                'libpng.lib',
-                'libtiff.dll.a',
+                'libpng.a',
+                'libtiff.a',
                 'libMagickWand-6.Q16.dll.a',
                 'libMagickCore-6.Q16.dll.a',
-                'pango-1.0.lib',
-                'pangoft2-1.0.lib',
+                'libpango-1.0.lib',
+                'libpangoft2-1.0.lib',
                 'libgsf-1.dll.a',
                 'libopenslide.dll.a',
                 'libfftw3.dll.a'
@@ -80,7 +80,13 @@
     },
     'msvs_settings': {
       'VCCLCompilerTool': {
-        'ExceptionHandling': 1 # /EHsc
+        'ExceptionHandling': 1, # /EHsc
+        'ImageHasSafeExceptionHandlers': 0 # /SAFESEH:NO
+      }
+    },
+    "msbuild_settings": {
+      "Link": {
+        'ImageHasSafeExceptionHandlers': "false"
       }
     },
     'configurations': {
@@ -88,6 +94,7 @@
         'msvs_settings': {
           'VCCLCompilerTool': {
             'ExceptionHandling': 1,
+            'ImageHasSafeExceptionHandlers': 0
           }
         }
       }
