@@ -15,7 +15,7 @@ if (process.platform === 'win32') {
     libvips.mkdirSync(buildDir);
     libvips.mkdirSync(buildReleaseDir);
   } catch (err) {}
-  const vendorLibDir = path.join(__dirname, '..', 'vendor', 'lib');
+  const vendorLibDir = path.join(__dirname, '..', 'vendor', 'bin');
   npmLog.info('sharp', `Copying DLLs from ${vendorLibDir} to ${buildReleaseDir}`);
   try {
     fs

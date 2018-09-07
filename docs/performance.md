@@ -15,7 +15,7 @@
 * [imagemagick](https://www.npmjs.com/package/imagemagick) v0.1.3 - Supports filesystem only and "*has been unmaintained for a long time*".
 * [gm](https://www.npmjs.com/package/gm) v1.23.1 - Fully featured wrapper around GraphicsMagick's `gm` command line utility.
 * [images](https://www.npmjs.com/package/images) v3.0.1 - Compiles dependencies from source. Provides bicubic interpolation.
-* sharp v0.19.0 / libvips v8.6.1 - Caching within libvips disabled to ensure a fair comparison.
+* sharp v0.19.0 / libvips v8.6.0 - Caching within libvips disabled to ensure a fair comparison.
 
 ### The task
 

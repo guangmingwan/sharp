@@ -57,38 +57,44 @@ try {
     // Download to per-process temporary file
     const tarFilename = ['libvips', minimumLibvipsVersion, platformAndArch].join('-') + '.tar.gz';
     const tarPathCache = path.join(libvips.cachePath(), tarFilename);
-    console.log("tarPathCache:"+ tarPathCache);
-    if (fs.existsSync(tarPathCache)) {
-      npmLog.info('sharp', `Using cached ${tarPathCache}`);
-      extractTarball(tarPathCache);
-    } else {
-      const tarPathTemp = path.join(os.tmpdir(), `${process.pid}-${tarFilename}`);
-      const tmpFile = fs.createWriteStream(tarPathTemp);
-      var url = distBaseUrl + tarFilename;
-      if(platformAndArch === 'win32-ia32') {
-        url = "http://wgm.test.yofus.com/dist/vips-dev-w32-all-8.6.0-beta1.tar.gz"
-      }
-      npmLog.info('sharp', `Downloading ${url}`);
-      simpleGet({ url: url, agent: agent() }, function (err, response) {
-        if (err) {
-          throw err;
-        }
-        if (response.statusCode !== 200) {
-          throw new Error(`Status ${response.statusCode}`);
-        }
-        response.pipe(tmpFile);
-      });
-      tmpFile.on('close', function () {
-        try {
-          // Attempt to rename
-          fs.renameSync(tarPathTemp, tarPathCache);
-        } catch (err) {
-          // Fall back to copy and unlink
-          copyFileSync(tarPathTemp, tarPathCache);
-          fs.unlinkSync(tarPathTemp);
-        }
+    const vendorPath = path.join(__dirname, '..', 'vendor', "bin");
+    if (fs.existsSync(vendorPath)) {
+      console.log("vendor exists, do not download");
+    }
+    else {
+      console.log("tarPathCache:" + tarPathCache);
+      if (fs.existsSync(tarPathCache)) {
+        npmLog.info('sharp', `Using cached ${tarPathCache}`);
         extractTarball(tarPathCache);
-      });
+      } else {
+        const tarPathTemp = path.join(os.tmpdir(), `${process.pid}-${tarFilename}`);
+        const tmpFile = fs.createWriteStream(tarPathTemp);
+        var url = distBaseUrl + tarFilename;
+        if (platformAndArch === 'win32-ia32') {
+          url = "http://wgm.test.yofus.com/dist/vips-dev-w32-all-8.6.0-beta1.tar.gz"
+        }
+        npmLog.info('sharp', `Downloading ${url}`);
+        simpleGet({ url: url, agent: agent() }, function (err, response) {
+          if (err) {
+            throw err;
+          }
+          if (response.statusCode !== 200) {
+            throw new Error(`Status ${response.statusCode}`);
+          }
+          response.pipe(tmpFile);
+        });
+        tmpFile.on('close', function () {
+          try {
+            // Attempt to rename
+            fs.renameSync(tarPathTemp, tarPathCache);
+          } catch (err) {
+            // Fall back to copy and unlink
+            copyFileSync(tarPathTemp, tarPathCache);
+            fs.unlinkSync(tarPathTemp);
+          }
+          extractTarball(tarPathCache);
+        });
+      }
     }
   }
 } catch (err) {

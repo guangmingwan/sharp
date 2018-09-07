@@ -2,7 +2,7 @@
 
 ### v0.20 - "*prebuild*"
 
-Requires libvips v8.6.1.
+Requires libvips v8.6.0.
 
 #### v0.20.8 - 5<sup>th</sup> September 2018
 
@@ -110,7 +110,7 @@ Requires libvips v8.6.1.
 
 ### v0.19 - "*suit*"
 
-Requires libvips v8.6.1.
+Requires libvips v8.6.0.
 
 #### v0.19.1 - 24<sup>th</sup> February 2018
 
