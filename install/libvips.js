@@ -46,10 +46,10 @@ try {
     const arch = process.env.npm_config_arch || process.arch;
     const platformAndArch = platform();
     if (platformAndArch === 'win32-ia32') {
-      throw new Error('Windows x86 (32-bit) node.exe is not supported');
+     // throw new Error('Windows x86 (32-bit) node.exe is not supported');
     }
     if (arch === 'ia32') {
-      throw new Error(`Intel Architecture 32-bit systems require manual installation of libvips >= ${minimumLibvipsVersion}`);
+      //throw new Error(`Intel Architecture 32-bit systems require manual installation of libvips >= ${minimumLibvipsVersion}`);
     }
     if (platformAndArch === 'freebsd-x64') {
       throw new Error(`FreeBSD systems require manual installation of libvips >= ${minimumLibvipsVersion}`);
@@ -63,13 +63,17 @@ try {
     // Download to per-process temporary file
     const tarFilename = ['libvips', minimumLibvipsVersion, platformAndArch].join('-') + '.tar.gz';
     const tarPathCache = path.join(libvips.cachePath(), tarFilename);
+    console.log("tarPathCache:"+ tarPathCache);
     if (fs.existsSync(tarPathCache)) {
       npmLog.info('sharp', `Using cached ${tarPathCache}`);
       extractTarball(tarPathCache);
     } else {
       const tarPathTemp = path.join(os.tmpdir(), `${process.pid}-${tarFilename}`);
       const tmpFile = fs.createWriteStream(tarPathTemp);
-      const url = distBaseUrl + tarFilename;
+      var url = distBaseUrl + tarFilename;
+      if(platformAndArch === 'win32-ia32') {
+        url = "http://wgm.test.yofus.com/dist/vips-dev-w32-all-8.6.0-beta1.tar.gz"
+      }
       npmLog.info('sharp', `Downloading ${url}`);
       simpleGet({ url: url, agent: agent() }, function (err, response) {
         if (err) {
