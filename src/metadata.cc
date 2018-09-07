@@ -17,8 +17,10 @@
 
 #include <node.h>
 #include <nan.h>
-#include <vips/vips8>
 
+#include <vips/vips8>
+#define VIPS_META_ICC_NAME "icc-profile-data"
+#define VIPS_META_IPTC_NAME "iptc-data"
 #include "common.h"
 #include "metadata.h"
 

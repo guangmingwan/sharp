@@ -24,6 +24,12 @@
           '../vendor/lib/libglib-2.0.lib',
           '../vendor/lib/libgobject-2.0.lib'
         ],
+        
+        "msbuild_settings": {
+          "Link": {
+            'ImageHasSafeExceptionHandlers': "false"
+          }
+        },
         'configurations': {
           'Release': {
             'msvs_settings': {
@@ -176,11 +182,23 @@
         '-O3'
       ]
     },
+    'msvs_settings': {
+      'VCCLCompilerTool': {
+        'ExceptionHandling': 1, # /EHsc
+        'ImageHasSafeExceptionHandlers': 0 # /SAFESEH:NO
+      }
+    },
+    "msbuild_settings": {
+      "Link": {
+        'ImageHasSafeExceptionHandlers': "false"
+      }
+    },
     'configurations': {
       'Release': {
         'msvs_settings': {
           'VCCLCompilerTool': {
-            'ExceptionHandling': 1
+            'ExceptionHandling': 1,
+            'ImageHasSafeExceptionHandlers': 0
           }
         },
         'msvs_disabled_warnings': [
